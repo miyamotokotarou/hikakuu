@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>マークシート採点（写真のみ）</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<header class="app-header">
+		<h1>マークシート採点</h1>
+	</header>
+
+	<main>
+		<section id="quick" class="view active" aria-labelledby="簡易採点">
+			<div class="card">
+				<div class="row" style="gap:12px;align-items:flex-end">
+					<strong>写真から読み取り (Beta)</strong>
+					<span>設問数: <strong>26</strong>（固定）</span>
+					<label>選択肢<input type="number" id="omr-c" value="5" min="2" max="8"></label>
+					<label>プリセット
+						<select id="omr-preset">
+							<option value="lenient">甘め</option>
+							<option value="normal" selected>標準</option>
+							<option value="strict">厳しめ</option>
+						</select>
+					</label>
+					<label>X<input type="number" id="omr-x" value="50"></label>
+					<label>Y<input type="number" id="omr-y" value="100"></label>
+					<label>列幅<input type="number" id="omr-colw" value="48"></label>
+					<label>行高<input type="number" id="omr-rowh" value="36"></label>
+					<label>丸サイズ<input type="number" id="omr-r" value="12"></label>
+					<label>二値化閾値<input type="number" id="omr-th" value="140"></label>
+					<label>塗りつぶし率(%)<input type="number" id="omr-fill" value="35" min="5" max="95"></label>
+					<label>僅差許容(%)<input type="number" id="omr-margin" value="10" min="0" max="49"></label>
+				</div>
+				<div class="row" style="gap:12px;align-items:flex-end;margin-top:6px">
+					<label>モード
+						<select id="omr-mode">
+							<option value="absolute">絶対値（塗り比率）</option>
+							<option value="relative">相対値（行内最大を採用）</option>
+						</select>
+					</label>
+					<label>中心探索(+px)<input type="number" id="omr-center" value="3" min="0" max="8"></label>
+					<label>輪郭重視<input type="checkbox" id="omr-ring"></label>
+					<label>僅差でも最大を採用<input type="checkbox" id="omr-force"></label>
+				</div>
+				<div class="row" style="gap:12px;align-items:center;margin-top:8px">
+					<label class="file"><input type="file" id="omr-key-img" accept="image/*"><span>キー画像</span></label>
+					<button id="omr-key-detect" class="secondary">キーを検出</button>
+					<label class="file"><input type="file" id="omr-resp-img" accept="image/*"><span>回答画像</span></label>
+					<button id="omr-resp-detect" class="primary">回答を検出して追加</button>
+					<button id="photo-export" class="secondary">結果をCSVで出力</button>
+				</div>
+				<canvas id="omr-canvas" height="0" style="margin-top:8px;max-width:100%;border:1px dashed var(--border);"></canvas>
+				<div id="quick-results" style="margin-top:12px"></div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="app-footer">
+		<small>ローカルのみで動作。写真からの読み取りのみ対応（26問固定）。</small>
+	</footer>
+
+	<script src="app.js"></script>
+</body>
+</html> 
